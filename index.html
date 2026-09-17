@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mini3D Studio - Premium 3D Miniature</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui}
+body{background:#f6f3ef}.wrap{max-width:520px;margin:0 auto;background:#fff;min-height:100vh}
+.top{padding:16px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee;position:sticky;top:0;background:#fff;z-index:10}
+.card{margin:12px;border:1px solid #eee;border-radius:20px;padding:18px}
+.tbtn{flex:1;border:2px solid #ece7df;border-radius:16px;padding:16px 6px;text-align:center;cursor:pointer;font-weight:800;background:#fffdf8;transition:.3s;user-select:none;-webkit-tap-highlight-color:transparent}
+.tbtn.active{background:#111;color:#fff;transform:translateY(-3px);box-shadow:0 10px 25px #0003;border-color:#111}
+.sbtn{border:1.5px solid #ece7df;border-radius:14px;padding:14px;text-align:center;cursor:pointer;background:#fff;font-weight:700;transition:.2s}
+.sbtn.active{background:#111;color:#fff;transform:scale(1.03)}
+.demoBox{margin:14px 0;background:radial-gradient(circle,#fff8f0,#ffe9d6);border:2px dashed #ffb86a;border-radius:20px;padding:14px;text-align:center;min-height:360px}
+.stage{width:100%;height:320px;background:linear-gradient(180deg,#fff,#fff5e6);border-radius:14px;display:flex;align-items:end;justify-content:center;position:relative;border:1px solid #f0e6d6;overflow:hidden}
+.stage::before{content:'';position:absolute;bottom:0;left:0;right:0;height:45px;background:linear-gradient(180deg,#d2b48c,#8b7355);border-radius:0 0 14px 14px;z-index:1}
+.fig{position:relative;z-index:2;transition:all .7s cubic-bezier(.34,1.56,.64,1);transform-origin:bottom center;display:flex;gap:8px;align-items:end;justify-content:center}
+.fig img{border-radius:12px;border:3px solid #fff;box-shadow:0 12px 30px rgba(0,0,0,.3);object-fit:cover;width:110px;height:150px;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.badge{position:absolute;left:10px;top:10px;background:#111;color:#fff;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:800;z-index:3}
+.live{position:absolute;right:10px;top:10px;background:#ff3b30;color:#fff;padding:5px 10px;border-radius:20px;font-size:10px;font-weight:800;z-index:3}
+.empty{color:#999;padding:50px 10px}.empty div{font-size:44px}
+.price{background:#111;color:#fff;border-radius:16px;padding:16px;display:flex;justify-content:space-between;margin:12px 0}
+.in{width:100%;padding:14px;border:1.5px solid #e9e2d9;border-radius:12px;margin:7px 0;font-weight:600;background:#fdfbf6}
+.btn{width:100%;padding:14px;background:#111;color:#fff;border:none;border-radius:12px;font-weight:900;margin-top:10px;cursor:pointer}
+.btn-o{background:linear-gradient(135deg,#ff6b35,#ff8e3c)}
+.hide{display:none!important}
+.qr{width:140px;height:140px;display:block;background:#fff;padding:6px;border-radius:12px}
+.uploadBox{border:2px dashed #ffcc8a;background:#fff8f0;border-radius:14px;padding:18px;text-align:center;cursor:pointer}
+.payGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.payBtn{border:2px solid #eee;border-radius:12px;padding:12px;background:#fff;display:flex;align-items:center;gap:10px;cursor:pointer;font-weight:800}
+.upiBox{background:#111;color:#fff;border-radius:12px;padding:12px;display:flex;justify-content:space-between;align-items:center;margin:10px 0}
+.copyBtn{background:#fff;color:#111;border:none;padding:8px 16px;border-radius:20px;font-weight:900;font-size:12px;cursor:pointer}
+.successBox{background:#111;color:#fff;border-radius:18px;padding:18px;margin-top:16px}
+.bigPreview{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:12px}
+.bigPreview img{width:120px;height:160px;object-fit:cover;border-radius:14px;border:3px solid #ffcc8a;box-shadow:0 10px 25px rgba(0,0,0,.2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top">
+<div onclick="secretAdmin()" style="cursor:pointer"><b>MINI<span style="background:#111;color:#ffcc8a;padding:3px 8px;border-radius:8px;margin-left:4px">3D</span> 🗽</b><div style="font-size:9px;color:#888;font-weight:600">MUMBAI PREMIUM STUDIO</div></div>
+<a href="https://wa.me/919244907634?text=Hi%20Mini3D%20Mumbai%20Support" style="font-size:11px;background:#25D366;color:#fff;padding:7px 12px;border-radius:20px;text-decoration:none;font-weight:800">💬 WhatsApp</a>
+</div>
+
+<div class="card" id="step1">
+<div style="font-size:11px;color:#ff6b35;font-weight:900">STEP 1: PLAN SELECT KARO</div>
+<div style="display:flex;gap:10px;margin-top:12px">
+<div class="tbtn" onclick="selectPlan('Single',this)"><div style="font-size:28px">🧔</div><b>Single</b><br><span style="font-size:10px;opacity:.7">1 Person</span></div>
+<div class="tbtn" onclick="selectPlan('Couple',this)"><div style="font-size:28px">👩‍❤️‍👨</div><b>Couple</b><br><span style="font-size:10px;opacity:.7">2 Person</span></div>
+<div class="tbtn" onclick="selectPlan('Family',this)"><div style="font-size:28px">👨‍👩‍👧‍👦</div><b>Family</b><br><span style="font-size:10px;opacity:.7">3+ Person</span></div>
+</div>
+
+<div id="sizeSection" class="hide">
+<div style="font-size:10px;color:#999;font-weight:800;margin-top:16px">SIZE SELECT</div>
+<div id="sizeBox" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px"></div>
+</div>
+
+<div class="demoBox">
+<div id="emptyState" class="empty"><div>🎯</div><b>Plan Select Karo</b><br><span style="font-size:11px">Select karte hi yahan Professional 3D Dikhlega</span></div>
+<div id="demoContent" class="hide">
+<div class="badge" id="sizeLbl">8 Inch</div><div class="live">● LIVE 3D</div>
+<div class="stage" id="stage"><div id="fig" class="fig"></div><div style="position:absolute;left:50%;bottom:6px;transform:translateX(-50%);background:#111;color:#ffcc8a;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:900;z-index:4" id="inchBadge">8 INCH</div></div>
+<div style="font-weight:900;margin-top:12px" id="demoTitle">Single - 8Inch</div>
+<div style="font-size:11px;color:#666" id="demoSub">Mumbai Studio - Professional 3D</div>
+</div>
+</div>
+
+<div id="uploadSection" class="hide">
+<div style="font-size:10px;color:#999;font-weight:800">UPLOAD YOUR PHOTO</div>
+<div class="uploadBox" onclick="document.getElementById('up').click()"><div style="font-size:26px">📸</div><b>Photo Upload - Bada 3D Dikhlega</b><div style="font-size:11px;color:#888">Auto Bada Preview - Mumbai Studio</div><input type="file" id="up" accept="image/*" class="hide" multiple onchange="auto3D(this)"></div>
+<div id="upPrev" class="hide"></div>
+</div>
+
+<div class="price hide" id="priceBox"><div><div style="font-size:10px;color:#ffcc8a">TOTAL PRICE</div><b id="tot" style="font-size:20px">₹600</b><div id="sizeInfo" style="font-size:10px;color:#888"></div></div><div style="text-align:right"><div style="font-size:10px;color:#aaa">ADVANCE 50%</div><b id="adv" style="color:#7CFF7C;font-size:20px">₹300</b></div></div>
+<button class="btn hide" id="nextBtn" onclick="if(uploadedPhotos.length==0){alert('Photo upload karo');return} go(2)">Next → Address 🏠</button>
+</div>
+
+<div class="card hide" id="step2"><h3>Delivery Address - Mumbai 🏠</h3><input id="cname" class="in" placeholder="Full Name *"><input id="cmob" class="in" placeholder="Mobile Number *"><textarea id="caddr" class="in" style="height:80px" placeholder="Full Address - Mumbai *"></textarea><button class="btn" onclick="if(!cname.value||!cmob.value||!caddr.value){alert('Bharo');return} go(3)">Next → Payment 💳</button><button class="btn" style="background:#f0ebe3;color:#111" onclick="go(1)">← Back</button></div>
+
+<div class="card hide" id="step3">
+<div style="background:#111;color:#fff;border-radius:14px;padding:14px;display:flex;justify-content:space-between"><div><div style="font-size:10px;color:#ffcc8a" id="ptxt">Single - 8Inch</div><b id="ptot">₹600</b></div><div style="text-align:right"><div style="font-size:10px;color:#aaa">PAY NOW 50%</div><b id="padv" style="color:#7CFF7C">₹300</b></div></div>
+<div style="margin-top:14px">
+<div style="font-size:11px;font-weight:900;color:#ff6b35">ONE CLICK PAY - Mumbai Studio</div>
+<div class="payGrid">
+<div class="payBtn" onclick="pay()"><span>💙</span><div><div>Paytm</div><div style="font-size:10px;color:#888">Auto Open</div></div></div>
+<div class="payBtn" onclick="pay()"><span>💜</span><div><div>PhonePe</div><div style="font-size:10px;color:#888">Auto Open</div></div></div>
+<div class="payBtn" onclick="pay()"><span>💚</span><div><div>GPay</div><div style="font-size:10px;color:#888">Auto Open</div></div></div>
+<div class="payBtn" onclick="pay()"><span>🅱️</span><div><div>BHIM UPI</div><div style="font-size:10px;color:#888">Any App</div></div></div>
+</div>
+<div style="border:2px dashed #e8ddd0;border-radius:16px;padding:14px;background:#fdfbf6;margin-top:12px">
+<div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:10px;color:#999;font-weight:800">PAYING AMOUNT</div><div id="pamt" style="font-size:28px;font-weight:900">₹300</div></div><img id="qr" class="qr"></div>
+<div class="upiBox"><div><div style="font-size:10px;color:#888">UPI ID - Mumbai Studio</div><div style="font-weight:900;font-size:14px" id="upiTxt">sonali-5411@ptyes</div><div style="font-size:10px;color:#aaa" id="upiName">Mini3D Mumbai Studio</div></div><button class="copyBtn" onclick="copyUPI()">📋 COPY</button></div>
+<div id="copyMsg" style="font-size:11px;color:#7CFF7C;font-weight:800;display:none;text-align:center">✅ Copied!</div>
+</div>
+</div>
+<button class="btn btn-o" onclick="go(4)">I Paid → Screenshot 📸</button>
+<button class="btn" style="background:#f0ebe3;color:#111" onclick="go(2)">← Back</button>
+</div>
+
+<div class="card hide" id="step4">
+<h3>Payment Screenshot Upload - Mumbai 📸</h3>
+<p style="font-size:12px;color:#666;margin:8px 0">Screenshot ke baad hi Confirm hoga!</p>
+<div class="uploadBox" onclick="document.getElementById('ss').click()"><div style="font-size:26px">💳</div><b>Screenshot Upload Karo</b><div style="font-size:11px;color:#888">Mumbai Studio</div><input type="file" id="ss" accept="image/*" class="hide" onchange="handleSS(this)"></div>
+<img id="ssPrev" class="hide" style="width:100%;border-radius:12px;margin-top:12px;max-height:280px;object-fit:contain;border:2px solid #7CFF7C">
+<button class="btn hide" id="confirmBtn" onclick="confirmPay()">✅ Confirm Booking</button>
+<div id="successArea" class="hide">
+<div class="successBox">
+<div style="width:60px;height:60px;background:#7CFF7C;color:#111;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900;margin:0 auto">✓</div>
+<h2 style="text-align:center;margin-top:12px">Payment Successful! 🎉</h2>
+<div style="text-align:center;font-size:28px;font-weight:900;margin:10px 0;color:#7CFF7C" id="bid">MINI00000</div>
+<div style="background:#1e1e1e;border-radius:12px;padding:14px"><div id="bdet" style="font-size:13px"></div>
+<div style="background:#000;border:1px dashed #444;border-radius:12px;padding:14px;margin-top:14px"><div style="color:#7CFF7C;font-weight:800">⏰ 1 Ya 2 Din Me Tracking ID Mil Jayegi</div><div style="font-size:12px;color:#aaa;margin-top:6px">✅ Mumbai Studio me ban rahi hai<br>✅ WhatsApp pe Tracking ID ayegi<br>✅ 2-3 din me Mumbai Delivery 🚚</div>
+<div style="margin-top:12px;background:#111;border-radius:10px;padding:12px">
+<div style="font-size:10px;color:#888">BOOKING ID</div><div id="bid2" style="font-weight:900;color:#ffcc8a;font-size:18px">MINI00000</div>
+<div style="margin-top:12px;background:#000;border:1px dashed #25D366;border-radius:10px;padding:12px;text-align:center">
+<div style="font-size:11px;color:#25D366;font-weight:800">📱 TRACKING KE LIYE WHATSAPP KARO</div>
+<a id="waTrackBtn" href="https://wa.me/919244907634" style="display:block;background:#25D366;color:#fff;padding:12px;border-radius:10px;text-decoration:none;font-weight:900;margin-top:10px">💬 WhatsApp - 9244907634</a>
+</div>
+</div></div></div>
+<a id="waSupport" href="https://wa.me/919244907634" style="display:block;background:#25D366;color:#fff;padding:14px;border-radius:12px;text-decoration:none;font-weight:800;margin-top:14px;text-align:center">💬 WhatsApp Support - Mumbai Studio</a>
+</div>
+</div>
+<button class="btn" style="background:#f0ebe3;color:#111;margin-top:12px" onclick="go(3)">← Back</button>
+</div>
+</div>
+
+<script>
+let WHATSAPP="919244907634";
+let CFG={upi:'sonali-5411@ptyes',upiname:'Mini3D Mumbai Studio',Single:{'8Inch':600,'12 inch':799,'16 inch':999,'20inch':1199,'24inch':1399},Couple:{'8 inch':799,'12 inch':999,'16 inch':1199,'20inch':1399,'24inch':1599},Family:{'8Inch':899,'12inch':1150,'16inch':1599,'20inch':1799,'24inch':1999}};
+try{let l
