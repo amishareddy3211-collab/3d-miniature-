@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mini3D Mumbai Studio</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui}body{background:#f6f3ef}.wrap{max-width:520px;margin:0 auto;background:#fff;min-height:100vh}
+.top{padding:16px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee;position:sticky;top:0;background:#fff;z-index:10}
+.card{margin:12px;border:1px solid #eee;border-radius:20px;padding:18px}
+.tbtn{flex:1;border:2px solid #ece7df;border-radius:16px;padding:16px 6px;text-align:center;cursor:pointer;font-weight:800;background:#fffdf8}
+.tbtn.active{background:#111;color:#fff;transform:translateY(-3px);box-shadow:0 10px 25px #0003}
+.sbtn{border:1.5px solid #ece7df;border-radius:14px;padding:14px;text-align:center;cursor:pointer;background:#fff;font-weight:700}.sbtn.active{background:#111;color:#fff}
+.demoBox{margin:14px 0;background:radial-gradient(circle,#fff8f0,#ffe9d6);border:2px dashed #ffb86a;border-radius:20px;padding:14px;text-align:center;min-height:360px}
+.stage{width:100%;height:340px;background:linear-gradient(180deg,#fff,#fff5e6);border-radius:14px;display:flex;align-items:end;justify-content:center;position:relative;border:1px solid #f0e6d6;overflow:hidden}
+.stage::before{content:'';position:absolute;bottom:0;left:0;right:0;height:45px;background:linear-gradient(180deg,#d2b48c,#8b7355);border-radius:0 0 14px 14px;z-index:1}
+.fig{position:relative;z-index:2;transition:all .6s;display:flex;gap:8px;align-items:end;justify-content:center}
+.fig img{border-radius:12px;border:3px solid #fff;box-shadow:0 12px 30px rgba(0,0,0,.3);object-fit:cover;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.empty{color:#999;padding:60px 10px}.empty div{font-size:44px}
+.price{background:#111;color:#fff;border-radius:16px;padding:16px;display:flex;justify-content:space-between;margin:12px 0}
+.in{width:100%;padding:14px;border:1.5px solid #e9e2d9;border-radius:12px;margin:7px 0;font-weight:600;background:#fdfbf6}
+.btn{width:100%;padding:14px;background:#111;color:#fff;border:none;border-radius:12px;font-weight:900;margin-top:10px;cursor:pointer}
+.btn-o{background:linear-gradient(135deg,#ff6b35,#ff8e3c)}.hide{display:none!important}
+.qr{width:140px;height:140px;background:#fff;padding:6px;border-radius:12px}
+.uploadBox{border:2px dashed #ffcc8a;background:#fff8f0;border-radius:14px;padding:18px;text-align:center;cursor:pointer}
+.payGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.payBtn{border:2px solid #eee;border-radius:12px;padding:12px;background:#fff;display:flex;align-items:center;gap:10px;cursor:pointer;font-weight:800}
+.upiBox{background:#111;color:#fff;border-radius:12px;padding:12px;display:flex;justify-content:space-between;align-items:center;margin:10px 0}
+.copyBtn{background:#fff;color:#111;border:none;padding:8px 16px;border-radius:20px;font-weight:900;font-size:12px;cursor:pointer}
+.successBox{background:#111;color:#fff;border-radius:18px;padding:18px;margin-top:16px}
+.bigPreview{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top">
+<div onclick="if(confirm('Admin Open?'))location.href='admin.html'" style="cursor:pointer"><b>MINI<span style="background:#111;color:#ffcc8a;padding:3px 8px;border-radius:8px;margin-left:4px">3D</span></b><div style="font-size:9px;color:#888">MUMBAI PREMIUM STUDIO</div></div>
+<a href="https://wa.me/919244907634" style="font-size:11px;background:#25D366;color:#fff;padding:7px 12px;border-radius:20px;text-decoration:none;font-weight:800">💬 WhatsApp 9244907634</a>
+</div>
+
+<div class="card" id="step1">
+<div style="font-size:11px;color:#ff6b35;font-weight:900">STEP 1: PLAN SELECT KARO - CLICK KARO 👇</div>
+<div style="display:flex;gap:10px;margin-top:12px">
+<div class="tbtn" id="b1" onclick="selectPlan('Single')"><div style="font-size:28px">🧔</div><b>Single</b><br><span style="font-size:10px">1 Person</span></div>
+<div class="tbtn" id="b2" onclick="selectPlan('Couple')"><div style="font-size:28px">👩‍❤️‍👨</div><b>Couple</b><br><span style="font-size:10px">2 Person</span></div>
+<div class="tbtn" id="b3" onclick="selectPlan('Family')"><div style="font-size:28px">👨‍👩‍👧‍👦</div><b>Family</b><br><span style="font-size:10px">3+ Person</span></div>
+</div>
+
+<div id="sizeSection" class="hide">
+<div style="font-size:10px;color:#999;font-weight:800;margin-top:16px">SIZE SELECT</div>
+<div id="sizeBox" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px"></div>
+</div>
+
+<div class="demoBox">
+<div id="emptyState" class="empty"><div>🎯</div><b>Upar Plan Pe Click Karo</b><br><span style="font-size:11px">Click karte hi yahan 3D Dikhlega</span></div>
+<div id="demoContent" class="hide">
+<div style="position:absolute;left:10px;top:10px;background:#111;color:#fff;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:800;z-index:3" id="sizeLbl">8 Inch</div>
+<div class="stage" id="stage"><div id="fig" class="fig"></div><div style="position:absolute;left:50%;bottom:6px;transform:translateX(-50%);background:#111;color:#ffcc8a;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:900;z-index:4" id="inchBadge">8 INCH</div></div>
+<div style="font-weight:900;margin-top:12px" id="demoTitle">Preview</div>
+</div>
+</div>
+
+<div id="uploadSection" class="hide">
+<div style="font-size:10px;color:#999;font-weight:800">UPLOAD PHOTO - BADA DIKHEGA</div>
+<div class="uploadBox" onclick="document.getElementById('up').click()"><div style="font-size:26px">📸</div><b>Photo Upload Karo - Bada 3D</b><div style="font-size:11px;color:#888">Mumbai Studio</div><input type="file" id="up" accept="image/*" class="hide" multiple onchange="auto3D(this)"></div>
+<div id="upPrev" class="hide bigPreview"></div>
+</div>
+
+<div class="price hide" id="priceBox"><div><div style="font-size:10px;color:#ffcc8a">TOTAL</div><b id="tot" style="font-size:20px">₹600</b></div><div style="text-align:right"><div style="font-size:10px;color:#aaa">ADVANCE 50%</div><b id="adv" style="color:#7CFF7C;font-size:20px">₹300</b></div></div>
+<button class="btn hide" id="nextBtn" onclick="if(uploadedPhotos.length==0){alert('Photo upload karo');return} go(2)">Next → Address 🏠</button>
+</div>
+
+<div class="card hide" id="step2"><h3>Address - Mumbai 🏠</h3><input id="cname" class="in" placeholder="Full Name *"><input id="cmob" class="in" placeholder="Mobile Number *"><textarea id="caddr" class="in" style="height:80px" placeholder="Full Address Mumbai *"></textarea><button class="btn" onclick="if(!cname.value||!cmob.value||!caddr.value){alert('Bharo');return} go(3)">Next → Payment</button><button class="btn" style="background:#f0ebe3;color:#111" onclick="go(1)">Back</button></div>
+
+<div class="card hide" id="step3">
+<div style="background:#111;color:#fff;border-radius:14px;padding:14px;display:flex;justify-content:space-between"><div><div style="font-size:10px;color:#ffcc8a" id="ptxt">Single</div><b id="ptot">₹600</b></div><div style="text-align:right"><div style="font-size:10px;color:#aaa">PAY NOW</div><b id="padv" style="color:#7CFF7C">₹300</b></div></div>
+<div style="border:2px dashed #e8ddd0;border-radius:16px;padding:14px;background:#fdfbf6;margin-top:12px">
+<div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:10px;color:#999">PAYING AMOUNT</div><div id="pamt" style="font-size:28px;font-weight:900">₹300</div></div><img id="qr" class="qr"></div>
+<div class="upiBox"><div><div style="font-size:10px;color:#888">UPI - Mumbai</div><div style="font-weight:900;font-size:14px">sonali-5411@ptyes</div></div><button class="copyBtn" onclick="navigator.clipboard.writeText('sonali-5411@ptyes');alert('Copied')">COPY</button></div>
+<div class="payGrid">
+<div class="payBtn" onclick="pay()">💙 Paytm</div>
+<div class="payBtn" onclick="pay()">💜 PhonePe</div>
+<div class="payBtn" onclick="pay()">💚 GPay</div>
+<div class="payBtn" onclick="pay()">🅱️ BHIM</div>
+</div>
+</div>
+<button class="btn btn-o" onclick="go(4)">I Paid → Screenshot</button>
+<button class="btn" style="background:#f0ebe3;color:#111" onclick="go(2)">Back</button>
+</div>
+
+<div class="card hide" id="step4">
+<h3>Screenshot Upload 📸</h3>
+<div class="uploadBox" onclick="document.getElementById('ss').click()"><div style="font-size:26px">💳</div><b>Screenshot Upload</b><input type="file" id="ss" accept="image/*" class="hide" onchange="handleSS(this)"></div>
+<img id="ssPrev" class="hide" style="width:100%;border-radius:12px;margin-top:12px;max-height:280px;object-fit:contain;border:2px solid #7CFF7C">
+<button class="btn hide" id="confirmBtn" onclick="confirmPay()">✅ Confirm Booking</button>
+<div id="successArea" class="hide">
+<div class="successBox">
+<div style="width:60px;height:60px;background:#7CFF7C;color:#111;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900;margin:0 auto">✓</div>
+<h2 style="text-align:center;margin-top:12px">Payment Successful!</h2>
+<div style="text-align:center;font-size:28px;font-weight:900;margin:10px 0;color:#7CFF7C" id="bid">MINI00000</div>
+<div style="background:#1e1e1e;border-radius:12px;padding:14px">
+<div id="bdet" style="font-size:13px"></div>
+<div style="margin-top:12px;background:#000;border:1px dashed #25D366;border-radius:10px;padding:12px;text-align:center">
+<div style="font-size:11px;color:#25D366;font-weight:800">📱 TRACKING KE LIYE WHATSAPP KARO</div>
+<div style="font-size:10px;color:#888">BOOKING ID: <span id="bid2" style="color:#ffcc8a;font-weight:900">MINI00000</span></div>
+<a id="waTrackBtn" href="https://wa.me/919244907634" style="display:block;background:#25D366;color:#fff;padding:12px;border-radius:10px;text-decoration:none;font-weight:900;margin-top:10px">💬 WhatsApp - 9244907634 - Tracking Lo</a>
+</div>
+</div>
+</div>
+<a id="waSupport" href="https://wa.me/919244907634" style="display:block;background:#25D366;color:#fff;padding:14px;border-radius:12px;text-decoration:none;font-weight:800;margin-top:14px;text-align:center">💬 WhatsApp Support</a>
+</div>
+                                                                                                                                                                                                                  </div>
