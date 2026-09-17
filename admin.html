@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin - Mini3D Studio</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui}
+body{background:#0f0f0f;color:#fff}
+.wrap{max-width:600px;margin:0 auto;padding:20px}
+.card{background:#1a1a1a;border:1px solid #333;border-radius:18px;padding:18px;margin:12px 0}
+.h{font-size:20px;font-weight:900;margin-bottom:12px}
+.lbl{font-size:10px;color:#888;letter-spacing:1px;font-weight:800;margin:12px 0 6px}
+.in{width:100%;padding:12px;border:1px solid #333;border-radius:10px;background:#111;color:#fff;font-weight:600}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.btn{width:100%;padding:14px;background:#fff;color:#111;border:none;border-radius:12px;font-weight:900;margin-top:14px;cursor:pointer}
+.btn2{background:#ff6b35;color:#fff}
+.small{font-size:11px;color:#888}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<h1 style="font-size:24px">🔐 Admin Panel</h1>
+<a href="index.html" style="color:#ffcc8a;text-decoration:none;font-weight:800">→ Website Dekho</a>
+</div>
+<p class="small" style="margin:8px 0">Yahan se UPI aur Price update karo - Automatic website pe update ho jayega!</p>
+
+<div class="card">
+<div class="h">💳 UPI Settings</div>
+<div class="lbl">UPI ID</div>
+<input id="upi" class="in" placeholder="sonali-5411@ptyes" value="sonali-5411@ptyes">
+<div class="lbl">UPI Name (Optional)</div>
+<input id="upiname" class="in" placeholder="Sonali Miniature Studio" value="Sonali Miniature Studio">
+</div>
+
+<div class="card">
+<div class="h">💰 Price Settings - Single</div>
+<div class="grid">
+<div><div class="lbl">8 Inch</div><input id="s_8Inch" class="in" type="number" value="600"></div>
+<div><div class="lbl">12 inch</div><input id="s_12inch" class="in" type="number" value="799"></div>
+<div><div class="lbl">16 inch</div><input id="s_16inch" class="in" type="number" value="999"></div>
+<div><div class="lbl">20inch</div><input id="s_20inch" class="in" type="number" value="1199"></div>
+<div><div class="lbl">24inch</div><input id="s_24inch" class="in" type="number" value="1399"></div>
+</div>
+</div>
+
+<div class="card">
+<div class="h">💑 Price Settings - Couple</div>
+<div class="grid">
+<div><div class="lbl">8 inch</div><input id="c_8inch" class="in" type="number" value="799"></div>
+<div><div class="lbl">12 inch</div><input id="c_12inch" class="in" type="number" value="999"></div>
+<div><div class="lbl">16 inch</div><input id="c_16inch" class="in" type="number" value="1199"></div>
+<div><div class="lbl">20inch</div><input id="c_20inch" class="in" type="number" value="1399"></div>
+<div><div class="lbl">24inch</div><input id="c_24inch" class="in" type="number" value="1599"></div>
+</div>
+</div>
+
+<div class="card">
+<div class="h">👨‍👩‍👧‍👦 Price Settings - Family</div>
+<div class="grid">
+<div><div class="lbl">8Inch</div><input id="f_8Inch" class="in" type="number" value="899"></div>
+<div><div class="lbl">12inch</div><input id="f_12inch" class="in" type="number" value="1150"></div>
+<div><div class="lbl">16inch</div><input id="f_16inch" class="in" type="number" value="1599"></div>
+<div><div class="lbl">20inch</div><input id="f_20inch" class="in" type="number" value="1799"></div>
+<div><div class="lbl">24inch</div><input id="f_24inch" class="in" type="number" value="1999"></div>
+</div>
+</div>
+
+<div class="card">
+<div class="h">⏰ Tracking Message</div>
+<div class="lbl">Tracking Time Message</div>
+<input id="trackMsg" class="in" value="1 Ya 2 Din Me Tracking ID Mil Jayegi">
+<div class="lbl">Delivery Time</div>
+<input id="delMsg" class="in" value="2-3 Din Me Home Delivery">
+</div>
+
+<button class="btn" onclick="save()">💾 Save All Settings</button>
+<button class="btn btn2" onclick="reset()">🔄 Reset to Default</button>
+
+<div id="status" style="margin-top:12px;padding:12px;background:#111;border-radius:10px;font-size:12px;color:#7CFF7C;display:none"></div>
+
+<div style="margin-top:20px;padding:14px;background:#111;border-radius:12px;font-size:11px;color:#888;line-height:1.6">
+<b style="color:#fff">Kaise Use Kare:</b><br>
+1. UPI ya Price change karo<br>
+2. Save pe click karo<br>
+3. Website automatic update ho jayegi<br>
+4. Customer ko naya price dikhega<br><br>
+<b>Admin Link:</b> https://amishareddy3211-collab.github.io/Sonali-booking-now/admin.html
+</div>
+</div>
+
+<script>
+function load(){
+let cfg=JSON.parse(localStorage.getItem('mini3d_config')||'null');
+if(cfg){
+document.getElementById('upi').value=cfg.upi||'sonali-5411@ptyes';
+document.getElementById('upiname').value=cfg.upiname||'Sonali Miniature Studio';
+document.getElementById('s_8Inch').value=cfg.Single['8Inch'];
+document.getElementById('s_12inch').value=cfg.Single['12 inch'];
+document.getElementById('s_16inch').value=cfg.Single['16 inch'];
+document.getElementById('s_20inch').value=cfg.Single['20inch'];
+document.getElementById('s_24inch').value=cfg.Single['24inch'];
+document.getElementById('c_8inch').value=cfg.Couple['8 inch'];
+document.getElementById('c_12inch').value=cfg.Couple['12 inch'];
+document.getElementById('c_16inch').value=cfg.Couple['16 inch'];
+document.getElementById('c_20inch').value=cfg.Couple['20inch'];
+document.getElementById('c_24inch').value=cfg.Couple['24inch'];
+document.getElementById('f_8Inch').value=cfg.Family['8Inch'];
+document.getElementById('f_12inch').value=cfg.Family['12inch'];
+document.getElementById('f_16inch').value=cfg.Family['16inch'];
+document.getElementById('f_20inch').value=cfg.Family['20inch'];
+document.getElementById('f_24inch').value=cfg.Family['24inch'];
+if(cfg.trackMsg) document.getElementById('trackMsg').value=cfg.trackMsg;
+if(cfg.delMsg) document.getElementById('delMsg').value=cfg.delMsg;
+}
+}
+function save(){
+let cfg={
+upi:document.getElementById('upi').value,
+upiname:document.getElementById('upiname').value,
+trackMsg:document.getElementById('trackMsg').value,
+delMsg:document.getElementById('delMsg').value,
+Single:{
+'8Inch':parseInt(document.getElementById('s_8Inch').value),
+'12 inch':parseInt(document.getElementById('s_12inch').value),
+'16 inch':parseInt(document.getElementById('s_16inch').value),
+'20inch':parseInt(document.getElementById('s_20inch').value),
+'24inch':parseInt(document.getElementById('s_24inch').value)
+},
+Couple:{
+'8 inch':parseInt(document.getElementById('c_8inch').value),
+'12 inch':parseInt(document.getElementById('c_12inch').value),
+'16 inch':parseInt(document.getElementById('c_16inch').value),
+'20inch':parseInt(document.getElementById('c_20inch').value),
+'24inch':parseInt(document.getElementById('c_24inch').value)
+},
+Family:{
+'8Inch':parseInt(document.getElementById('f_8Inch').value),
+'12inch':parseInt(document.getElementById('f_12inch').value),
+'16inch':parseInt(document.getElementById('f_16inch').value),
+'20inch':parseInt(document.getElementById('f_20inch').value),
+'24inch':parseInt(document.getElementById('f_24inch').value)
+}
+};
+localStorage.setItem('mini3d_config',JSON.stringify(cfg));
+let st=document.getElementById('status');
+st.style.display='block';
+st.innerHTML='✅ Saved! <br>UPI: '+cfg.upi+'<br>Website pe naya price update ho gaya! 
