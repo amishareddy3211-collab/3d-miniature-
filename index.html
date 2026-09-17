@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mini3D Studio | Premium 3D Miniature from Photo</title>
+<meta name="description" content="Premium 3D Miniature Studio Udaipur - Single, Couple, Family 3D Figurine from your photo. 50% Advance, Home Delivery.">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui,-apple-system,sans-serif}
+body{background:#f7f4ef}
+.wrap{max-width:520px;margin:0 auto;background:#fff;min-height:100vh;box-shadow:0 10px 40px #0001}
+.top{padding:16px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee;position:sticky;top:0;background:#ffffffee;backdrop-filter:blur(10px);z-index:10}
+.logo{font-weight:900;letter-spacing:-0.5px;font-size:19px}.logo span{background:#111;color:#fff;padding:3px 8px;border-radius:8px;margin-left:4px;color:#ffcc8a}
+.card{margin:12px;border:1px solid #eee;border-radius:20px;padding:18px;background:#fff}
+.lbl{font-size:10px;color:#999;letter-spacing:1.2px;font-weight:800;text-transform:uppercase;margin-bottom:8px}
+.h{font-size:21px;font-weight:900;line-height:1.2;margin-bottom:10px}
+.type-row{display:flex;gap:10px}
+.tbtn{flex:1;border:2px solid #ece7df;border-radius:16px;padding:14px 6px;background:#fffdf8;text-align:center;cursor:pointer;font-weight:800;transition:.2s}
+.tbtn.active{background:#111;color:#fff;border-color:#111;transform:translateY(-2px);box-shadow:0 8px 20px #0002}
+.size-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.sbtn{border:1.5px solid #ece7df;border-radius:14px;padding:14px;background:#fff;text-align:center;cursor:pointer;transition:.2s;font-weight:700}
+.sbtn.active{background:#111;color:#fff;border-color:#111;box-shadow:0 8px 20px #0002}
+.sbtn b{display:block;font-size:15px}.sbtn em{font-style:normal;font-size:12px;color:#888;display:block;margin-top:2px}.sbtn.active em{color:#aaa}
+.demo{margin:14px 0;background:linear-gradient(135deg,#fff8f0,#ffe9d6);border:1px dashed #ffb86a;border-radius:18px;padding:14px;text-align:center}
+.demo.imgbox{width:100%;height:220px;background:#fff;border-radius:14px;display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid #f0e6d6}
+.demo img{max-width:100%;max-height:100%;object-fit:contain}
+.price{background:#111;color:#fff;border-radius:16px;padding:16px;display:flex;justify-content:space-between;align-items:center;margin:12px 0}
+.in{width:100%;padding:14px 16px;border:1.5px solid #e9e2d9;border-radius:14px;background:#fdfbf6;margin:7px 0;font-weight:600;font-size:14px}
+.in:focus{outline:none;border-color:#111;background:#fff}
+.btn{width:100%;padding:15px;border:none;border-radius:14px;background:#111;color:#fff;font-weight:900;font-size:15px;cursor:pointer;margin-top:10px}
+.btn-o{background:linear-gradient(135deg,#ff6b35,#ff8e3c)}
+.hide{display:none!important}
+.qr{width:200px;height:200px;display:block;margin:12px auto;background:#fff;padding:8px;border-radius:16px;border:1px solid #eee}
+.prog{height:4px;background:#eee;display:flex}.prog b{flex:1;background:#eee;display:block}.prog b.on{background:#111}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><div class="logo">MINI<span>3D</span> 🗽</div><div style="font-size:11px;background:#111;color:#fff;padding:6px 12px;border-radius:20px">⭐ 4.9 | 5000+ Orders | Udaipur</div></div>
+<div class="prog"><b id="p1" class="on"></b><b id="p2"></b><b id="p3"></b><b id="p4"></b><b id="p5"></b></div>
+
+<!-- STEP 1 -->
+<div class="card" id="step1">
+<div class="lbl">Step 1 of 5 — Select Type & Size</div>
+<div class="h">Which type miniature you want 😊</div>
+<div class="type-row">
+<button class="tbtn active" onclick="setT('Single',this)"><div style="font-size:26px">🧔</div>Single<div style="font-size:10px;opacity:.6">1 Person</div></button>
+<button class="tbtn" onclick="setT('Couple',this)"><div style="font-size:26px">👩‍❤️‍👨</div>Couple<div style="font-size:10px;opacity:.6">2 Person</div></button>
+<button class="tbtn" onclick="setT('Family',this)"><div style="font-size:26px">👨‍👩‍👧‍👦</div>Family<div style="font-size:10px;opacity:.6">3+ Person</div></button>
+</div>
+
+<div class="lbl" style="margin-top:16px">Select Size — <span id="tName" style="color:#ff6b35">Single</span> 👇 Please select size</div>
+<div class="size-grid" id="sizeBox"></div>
+
+<div class="demo">
+<div class="imgbox"><img id="demoImg" src="https://i.ibb.co/4wL7yZgJ/single-demo.jpg" alt="3D Miniature Demo"></div>
+<div style="font-weight:900;margin-top:10px" id="demoTitle">Single - 8Inch - Premium 3D</div>
+<div style="font-size:12px;color:#7a6652;margin-top:4px" id="demoSub">₹600/- | Height 8 Inch | Aapki photo se aise hi 3D banega 🗽</div>
+<div style="font-size:10px;color:#999;margin-top:6px">Live Preview - Size ke hisab se height change hogi</div>
+</div>
+
+<div class="price"><div><div style="font-size:10px;color:#ffcc8a;letter-spacing:1px">TOTAL PRICE</div><div id="tot" style="font-size:20px;font-weight:900">₹600</div><div id="sizeInfo" style="font-size:10px;color:#888">Single - 8Inch</div></div><div style="text-align:right"><div style="font-size:10px;color:#aaa">ADVANCE 50%</div><div id="adv" style="font-size:20px;font-weight:900;color:#7CFF7C">₹300</div><div style="font-size:10px;color:#888">Balance on Delivery</div></div></div>
+
+<button class="btn" onclick="go(2)">Next → Upload Your Photo 📸</button>
+<p style="font-size:11px;color:#999;text-align:center;margin-top:10px">🔒 100% Secure • 🚚 Home Delivery • UPI: sonali-5411@ptyes</p>
+</div>
+
+<!-- STEP 2 PHOTO -->
+<div class="card hide" id="step2">
+<div class="lbl">Step 2 of 5 — Your Photo</div>
+<div class="h">Upload Photo - Isi se 3D Banega 🖼️</div>
+<p style="font-size:13px;color:#888;margin-bottom:8px">Clear front photo upload karo - Best result ayega</p>
+<input type="file" id="up" class="in" accept="image/*" onchange="pre(this,'pv1')">
+<img id="pv1" class="hide" style="width:100%;border-radius:14px;margin-top:8px;max-height:320px;object-fit:cover">
+<button class="btn" onclick="if(!up.files[0]){alert('Photo upload karo');return} go(3)">Next → Address 🏠</button>
+<button class="btn" style="background:#f0ebe3;color:#111" onclick="go(1)">← Back</button>
+</div>
+
+<!-- STEP 3 ADDRESS -->
+<div class="card hide" id="step3">
+<div class="lbl">Step 3 of 5 — Delivery Address</div>
+<div class="h">Home Delivery Details</div>
+<input id="cname" class="in" placeholder="Full Name *">
+<input id="cmob" class="in" placeholder="Mobile Number *">
+<textarea id="caddr" class="in" style="height:90px" placeholder="Full Address - House No, Street, City, Pincode *"></textarea>
+<button class="btn" onclick="if(!cname.value||!cmob.value||!caddr.value){alert('Name Mobile Address bharo');return} go(4)">Next → Payment 50% →</button>
+<button class="btn" style="background:#f0ebe3;color:#111" onclick="go(2)">← Back</button>
+</div>
+
+<!-- STEP 4 PAY -->
+<div class="card hide" id="step4" style="text-align:center">
+<div class="lbl">Step 4 of 5 — Secure Payment</div>
+<div class="h">Pay 50% Advance</div>
+<div class="price" style="text-align:left"><div><div style="font-size:10px;color:#ffcc8a" id="ptxt">Single - 8Inch</div><b id="ptot">₹600</b></div><div style="text-align:right"><div style="font-size:10px;color:#aaa">PAY NOW</div><b id="padv" style="color:#7CFF7C">₹300</b><div style="font-size:10px;color:#888">50% on Delivery</div></div></div>
+<div style="border:2px dashed #e8ddd0;border-radius:16px;padding:16px;background:#fdfbf6">
+<div style="font-size:32px;font-weight:900" id="pamt">₹300</div>
+<div style="background:#111;color:#fff;border-radius:10px;padding:10px;margin:10px 0;font-size:12px">UPI: sonali-5411@ptyes <button onclick="navigator.clipboard.writeText('sonali-5411@ptyes');alert('UPI Copied!')" style="background:#fff;color:#111;border:none;padding:5px 12px;border-radius:20px;font-weight:800;margin-left:8px">COPY</button></div>
+<img id="qr" class="qr">
+<div style="font-size:11px;color:#888">🔒 Secure Payment • Baaki 50% Delivery pe</div>
+</div>
+<button class="btn btn-o" onclick="go(5)">I Have Paid → Upload Screenshot</button>
+<button class="btn" style="background:#f0ebe3;color:#111" onclick="go(3)">← Back</button>
+</div>
+
+<!-- STEP 5 SCREENSHOT -->
+<div class="card hide" id="step5">
+<div class="lbl">Step 5 of 5 — Confirm</div>
+<div class="h">Upload Payment Screenshot 📸</div>
+<input type="file" id="ss" class="in" accept="image/*" onchange="pre(this,'pv2')">
+<img id="pv2" class="hide" style="width:100%;border-radius:14px;margin-top:8px">
+<button class="btn btn-o" onclick="confirm()">Generate Booking ID ✓</button>
+<button class="btn" style="background:#f0ebe3;color:#111" onclick="go(4)">← Back</button>
+</div>
+
+<!-- STEP 6 FINAL -->
+<div class="card hide" id="step6" style="text-align:center">
+<div style="width:72px;height:72px;background:#111;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:34px;margin:0 auto">✓</div>
+<h2 style="margin-top:12px;font-size:24px">Booking Confirmed! 🎉</h2>
+<div id="bid" style="font-size:34px;font-weight:900;margin:12px 0;letter-spacing:1px">MINI00000</div>
+<div style="background:#111;color:#fff;border-radius:18px;padding:18px;text-align:left">
+<div id="bdet" style="font-size:13px;line-height:1.7"></div>
+<div style="background:#1e1e1e;border:1px dashed #444;border-radius:12px;padding:14px;margin-top:14px">
+<div style="color:#7CFF7C;font-weight:800;font-size:15px">⏰ 1 Ya 2 Din Me Tracking ID Mil Jayegi</div>
+<div style="font-size:12px;color:#aaa;margin-top:6px;line-height:1.6">
+✅ Aapki 3D Miniature Studio me ban rahi hai<br>
+✅ 1-2 din me WhatsApp/Telegram pe <b style="color:#fff">Tracking ID</b> bhejenge<br>
+✅ Live track kar sakte ho<br>
+✅ 2-3 din me Home Delivery 🚚
+</div>
+<div style="margin-top:12px;background:#000;border-radius:10px;padding:12px">
+<div style="font-size:10px;color:#888">TRACKING STATUS</div>
+<div style="font-weight:800;margin-top:4px">🔄 Processing...</div>
+<div style="font-size:12px;color:#7CFF7C;margin-top:4px">Tracking: <span id="tid">TRK-MINI</span></div>
+<div style="font-size:10px;color:#aaa">SMS/Telegram pe ayegi</div>
+</div>
+</div>
+</div>
+<a href="http://t.me/Riya_31bot" style="display:block;background:#229ED9;color:#fff;padding:14px;border-radius:12px;text-decoration:none;font-weight:800;margin-top:14px;text-align:center">📲 Support - Riya_31bot</a>
+<p style="font-size:11px;color:#999;margin-top:10px">UPI: sonali-5411@ptyes | Professional Studio</p>
+</div>
+</div>
+</div>
+
+<script>
+// AAPKE PRICE - EXACT
+const DATA={
+Single:[{s:'8Inch',p:600},{s:'12 inch',p:799},{s:'16 inch',p:999},{s:'20inch',p:1199},{s:'24inch',p:1399}],
+Couple:[{s:'8 inch',p:799},{s:'12 inch',p:999},{s:'16 inch',p:1199},{s:'20inch',p:1399},{s:'24inch',p:1599}],
+Family:[{s:'8Inch',p:899},{s:'12inch',p:1150},{s:'16inch',p:1599},{s:'20inch',p:1799},{s:'24inch',p:1999}]
+};
+const DEMO={
+Single:'https://i.ibb.co/4wL7yZgJ/single-demo.jpg',
+Couple:'https://i.ibb.co/3Y7vQyLq/couple-demo.jpg',
+Family:'https://i.ibb.co/6P0KjJ8m/family-demo.jpg'
+};
+let curT='Single',curS='8Inch',curP=600;
+function setT(t,el){
+curT=t;document.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('active'));el.classList.add('active');
+document.getElementById('tName').innerText=t;
+render();
+}
+function render(){
+let box=document.getElementById('sizeBox');box.innerHTML='';
+DATA[curT].forEach((it,i)=>{
+let act=i===0?' active':'';if(i===0){curS=it.s;curP=it.p;}
+box.innerHTML+=`<button class="sbtn${act}" onclick="setS(this,'${it.s}',${it.p})"><b>${it.s}</b><em>₹${it.p}/-</em></button>`;
+});
+upd();
+}
+function setS(el,s,p){curS=s;curP=p;document.querySelectorAll('.sbtn').forEach(b=>b.classList.remove('active'));el.classList.add('active');upd();}
+function upd(){
+document.getElementById('tot').innerText='₹'+curP;
+document.getElementById('adv').innerText='₹'+Math.round(curP/2);
+document.getElementById('sizeInfo').innerText=curT+' - '+curS;
+document.getElementById('demoTitle').innerText=curT+' - '+curS+' - Premium 3D';
+document.getElementById('demoSub').innerText='₹'+curP+'/- | Height '+curS+' | Aapki photo se aise hi 3D banega 🗽';
+let img=document.getElementById('demoImg');
+img.src=DEMO[curT]||DEMO.Single;
+let h=curS.includes('8')?190:curS.includes('12')?220:curS.includes('16')?250:280;
+document.querySelector('.imgbox').style.height=h+'px';
+}
+function pre(inp,id){let f=inp.files[0];if(f){let im=document.getElementById(id);im.src=URL.createObjectURL(f);im.classList.remove('hide');}}
+function go(n){for(let i=1;i<=6;i++){let e=document.getElementById('step'+i);if(e)e.classList.add('hide');}document.getElementById('step'+n).classList.remove('hide');for(let i=1;i<=5;i++){let pb=document.getElementById('p'+i);if(pb){pb.classList.remove('on');if(i<=n)pb.classList.add('on');}}if(n===4){document.getElementById('ptxt').innerText=curT+' - '+curS;document.getElementById('ptot').innerText='₹'+curP;let adv=Math.round(curP/2);document.getElementById('padv').innerText='₹'+adv;document.getElementById('pamt').innerText='₹'+adv;document.getElementById('qr').src='https://api.qrserver.com/v1/create-qr-code/?size=200x200&data='+encodeURIComponent('upi://pay?pa=sonali-5411@ptyes&am='+adv+'&cu=INR');}window.scrollTo(0,0);}
+function confirm(){if(!document.getElementById('ss').files[0]){alert('Payment screenshot upload karo');return}let bid='MINI'+Date.now().toString().slice(-5);let trk='TRK-'+bid;document.getElementById('bid').innerText=bid;document.getElementById('tid').innerText=trk;let adv=Math.round(curP/2);document.getElementById('bdet').innerHTML=curT+' - '+curS+'<br>Total ₹'+curP+' | Adv <b style="color:#7CFF7C">₹'+adv+'</b> | Bal ₹'+(curP-adv)+' on Delivery<br><br>👤 '+cname.value+'<br>📱 '+cmob.value+'<br>🏠 '+caddr.value;go(6);}
+render();
+</script>
+</body></html>
